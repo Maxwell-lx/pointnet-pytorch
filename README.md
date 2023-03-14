@@ -1,2 +1,64 @@
 # pointnet-pytorch
-A pytorch version of pointnet implement.
+
+This is a pytorch version of [pointnet](https://github.com/charlesq34/pointnet), a classic framework for point cloud learning.
+
+This project is forked from [pointnet.pytorch](https://github.com/fxia22/pointnet.pytorch) and adding a **learn-normals** test to testify the ability to integrate information from neighborhood, which is considered to be one of the most important features of CNN.
+
+## learn-normals
+
+![pointnet reconstract normals](.\image\pointnet reconstract normals.png)
+
+This result comes from the original pointnet paper. The normals are calculated from mesh. 
+
+You can also regenerate normals directly from point cloud through [open3d](http://www.open3d.org/docs/release/tutorial/geometry/pointcloud.html#Vertex-normal-estimation) or [python-pcl](https://pcl.readthedocs.io/projects/tutorials/en/master/normal_estimation.html#normal-estimation).
+
+But none of them can get a proper direction for normals without a shooting position.
+
+Loss function can ignore this by 
+$$
+L1\_loss = mean(\sum {\left| {\cos \theta } \right|} ) = mean(\sum {\left| {{{\vec n}_1} \cdot {{\vec n}_2}} \right|)}
+$$
+
+$$
+L2\_loss = mean(\sum {{{\left( {{{\vec n}_1} \cdot {{\vec n}_2}} \right)}^2})}
+$$
+
+n1 and n2 are unit normals
+
+if n1 and n2 are collinear, then loss = 0
+
+if n1 and n2 are random vectors, then the expectation of L1 loss is 0.5 and the expectation of L2 loss is 0.333
+
+## Disable STN3 and data augmentation
+
+Although STN3 work well for classification and segmentation, but STN3 should be disabled in **learn-normals**.
+
+Beacuse STN3 applies an affine transformation on raw data, the affine transformation can not keep the normal property of geometry, same to data augmentaion.
+
+## 1.Download dataset
+
+```bash
+./download.sh
+```
+
+## 2.Generate normals
+
+```
+python gen_normals.py
+```
+
+## 3. train and evaluate 
+
+```
+python train_classificaton.py
+
+python train_segmentation.py
+
+python train_learn_normals.py
+```
+
+## Result
+
+After about 100 epoch, L1 loss descend to 0.2, L2 loss descend to 0.09.
+
+So pointnet verified its ability to integrate neighborhood information.
