@@ -16,7 +16,7 @@ But none of them can get a proper direction for normals without a shooting posit
 
 Loss function can ignore this by 
 $$
-L1\_loss = mean(\sum {\left| {\cos \theta } \right|} ) = mean(\sum {\left| {{{\vec n}_1} \cdot {{\vec n}_2}} \right|)}
+L1\_loss = mean(\sum {\left| {{{\vec n}_1} \cdot {{\vec n}_2}} \right|)}
 $$
 
 $$
