@@ -15,8 +15,14 @@ You can also regenerate normals directly from point cloud through [open3d](http:
 But none of them can get a proper direction for normals without a shooting position.
 
 Loss function can ignore this by 
+
+
 $$
-L2\_loss = mean(\sum {{{\left( {{{\vec n}_1} \cdot {{\vec n}_2}} \right)}^2})}
+L1_loss = mean(\sum {\left| {{{\vec n}_1} \cdot {{\vec n}_2}} \right|)}L1\_loss = mean(\sum {\left| {{{\vec n}_1} \cdot {{\vec n}_2}} \right|)}
+$$
+
+$$
+L2_loss = mean(\sum {{{\left( {{{\vec n}_1} \cdot {{\vec n}_2}} \right)}^2})}
 $$
 
 n1 and n2 are unit normals
