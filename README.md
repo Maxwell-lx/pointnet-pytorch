@@ -6,7 +6,7 @@ This project is forked from [pointnet.pytorch](https://github.com/fxia22/pointne
 
 ## learn-normals
 
-![pointnet reconstract normals](.\image\pointnet reconstract normals.png)
+![pointnet reconstract normals](https://github.com/Maxwell-lx/static/blob/main/images/pointnet%20reconstract%20normals.png)
 
 This result comes from the original pointnet paper. The normals are calculated from mesh. 
 
@@ -57,8 +57,18 @@ python train_segmentation.py
 python train_learn_normals.py
 ```
 
-## Result
+## Result of learn-normals
 
 After about 100 epoch, L1 loss descend to 0.2, L2 loss descend to 0.09.
 
-So pointnet verified its ability to integrate neighborhood information.
+The experimental results have demonstrated the capability of PointNet to learn the normals of point clouds. 
+
+This means that PointNet has the ability to integrate information from the local neighborhoods of points, even when they are presented in a disorderly manner.
+
+## Possible improvements
+
+Although the training loss has been reduced significantly, PointNet is expected to learn the basic ability to understand normal vectors in a short period of time. 
+
+Therefore, I believe that there is still room for improvement in the code, such as disabling batch normalization. 
+
+Another approach to improvement is to adjust the normal vectors synchronously with the adjustments made to STN, batch normalization, and data augmentation. Because when these operations adjust the original data, the normal vectors also change synchronously.
